@@ -13,6 +13,114 @@
             text-shadow: 2px 2px 4px black;
             background: url('https://xboxwire.thesourcemediaassets.com/sites/2/2023/10/WireScreenshot01-bb52b978f569c993e0c4.jpg') no-repeat center center fixed;
             background-size: cover;
+            overflow-x: hidden;
+            position: relative;
+            margin: 0;
+            padding: 0;
+        }
+        .parallax {
+            perspective: 1px;
+            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            transform-style: preserve-3d;
+        }
+        .background-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transform: translateZ(-1px) scale(2);
+            background: url('https://xboxwire.thesourcemediaassets.com/sites/2/2023/10/WireScreenshot01-bb52b978f569c993e0c4.jpg') no-repeat center center;
+            background-size: cover;
+            z-index: -1;
+        }
+        .fog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: -1;
+            animation: fog-move 20s linear infinite;
+        }
+        @keyframes fog-move {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100px); }
+        }
+        .light-rays {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at top left, rgba(255,255,200,0.3) 0%, rgba(255,255,200,0) 70%);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: -1;
+            animation: light-pulse 10s ease-in-out infinite;
+        }
+        @keyframes light-pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.5; }
+        }
+        .t-rex-silhouette {
+            position: fixed;
+            bottom: 10%;
+            right: 10%;
+            width: 300px;
+            height: 300px;
+            background: url('https://www.seekpng.com/png/full/58-584927_tyrannosaurus-rex-silhouette-at-getdrawings-t-rex-silhouette.png') no-repeat center/contain;
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(5px);
+        }
+        .rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .rain::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 200%;
+            background: linear-gradient(transparent, rgba(255,255,255,0.1));
+            transform: skewX(-30deg);
+            animation: rain-fall 1s linear infinite;
+            opacity: 0.5;
+        }
+        @keyframes rain-fall {
+            0% { top: -100%; }
+            100% { top: 100%; }
+        }
+        .lightning {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 10;
+            animation: lightning-flash 20s infinite;
+        }
+        @keyframes lightning-flash {
+            0%, 19.9%, 20.1%, 100% { opacity: 0; }
+            20% { opacity: 0.8; }
         }
         .container {
             background: rgba(0, 0, 0, 0.7);
@@ -20,6 +128,8 @@
             border-radius: 15px;
             margin-top: 50px;
             margin-bottom: 50px;
+            position: relative;
+            z-index: 2;
         }
         h1, h2 {
             text-align: center;
@@ -32,6 +142,8 @@
             border: 2px solid cyan;
             border-radius: 50%;
             box-shadow: 0 0 20px cyan;
+            position: relative;
+            z-index: 2;
         }
         .form-label {
             font-weight: bold;
@@ -63,6 +175,14 @@
     </style>
 </head>
 <body>
+    <div class="parallax">
+        <div class="background-layer"></div>
+    </div>
+    <div class="fog"></div>
+    <div class="light-rays"></div>
+    <div class="t-rex-silhouette"></div>
+    <div class="rain"></div>
+    <div class="lightning"></div>
     <div class="container fade-in">
         <img src="https://images.saymedia-content.com/.image/t_share/MTgyMjY5MDIxMzY0NjkyMjk2/the-future-of-ai-meet-hln-a-in-genesis-part-2.jpg" alt="KYRAX" class="kyrax-img">
         <h1>KI-RA STUDIOS NAMTAR ARK: Survival Ascended</h1>
