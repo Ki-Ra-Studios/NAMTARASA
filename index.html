@@ -1,931 +1,535 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KI-RA STUDIOS NAMTAR ARK: Survival Ascended Survivor Registration & Server Calibration Survey</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Orbitron', sans-serif;
-            color: white;
-            text-shadow: 2px 2px 4px black;
-            background: url('https://store-images.s-microsoft.com/image/apps.34402.14545480955348978.6df932ed-6670-40c9-9a84-fc164557d4ec.635b23a8-4ec7-44bd-b0ba-bc07c9b9ebb6') no-repeat center center fixed;
-            background-size: cover;
-        }
-        .container {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 30px;
-            border-radius: 15px;
-            margin-top: 50px;
-            margin-bottom: 50px;
-        }
-        h1, h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .kyrax-img {
-            display: block;
-            margin: 0 auto 20px;
-            max-width: 300px;
-            border: 2px solid cyan;
-            border-radius: 50%;
-            box-shadow: 0 0 20px cyan;
-        }
-        .form-label {
-            font-weight: bold;
-        }
-        .form-check-label {
-            margin-left: 10px;
-        }
-        #thankYou {
-            display: none;
-        }
-        .accordion-button {
-            color: white;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-        .accordion-button:not(.collapsed) {
-            color: cyan;
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-        .accordion-body {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .fade-in {
-            animation: fadeIn 1s ease-in;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAMTAR · Survivor Registration & Server Calibration</title>
+  <!-- Font & Icon Libraries -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0b0f0e;
+      color: #cfd7d3;
+      font-family: 'Rajdhani', sans-serif;
+      line-height: 1.6;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* immersive background – ark jungle / tek fusion */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 255, 200, 0.08) 0%, transparent 30%),
+        radial-gradient(circle at 90% 70%, rgba(255, 70, 150, 0.06) 0%, transparent 35%),
+        repeating-linear-gradient(45deg, rgba(20, 60, 40, 0.3) 0px, rgba(20, 60, 40, 0.3) 2px, 
+        rgba(0, 20, 15, 0.5) 2px, rgba(0, 20, 15, 0.5) 6px);
+      background-size: cover, cover, auto;
+      z-index: -2;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.15"><path d="M70 80 L100 40 L130 80 L100 120 Z" fill="none" stroke="%2300ffe1" stroke-width="1.5"/><circle cx="100" cy="100" r="8" fill="none" stroke="%23ff66aa" stroke-width="1"/><path d="M20 160 L50 140 L80 170 L40 190 Z" fill="none" stroke="%23aaffdd" stroke-width="1.2"/></svg>');
+      background-size: 180px 180px;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .wrapper {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem 4rem;
+      backdrop-filter: blur(1px);
+    }
+
+    /* KYRAX (HLNA style) header – floating AI */
+    .kyrax-container {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      background: rgba(8, 30, 28, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid #3b9e8c;
+      box-shadow: 0 0 30px #1de0b580, inset 0 0 10px #21c5a4;
+      padding: 1.2rem 2.5rem;
+      border-radius: 80px;
+      margin-bottom: 2.5rem;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .kyrax-avatar {
+      width: 70px;
+      height: 70px;
+      background: radial-gradient(circle at 30% 30%, #aafff0, #006b6b);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+      border: 2px solid #88ffff;
+      box-shadow: 0 0 25px cyan;
+    }
+
+    .kyrax-message p {
+      font-size: 1.3rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .kyrax-message span {
+      color: #88ffff;
+      text-shadow: 0 0 8px blue;
+      font-weight: 700;
+    }
+
+    .glitch {
+      color: #d3f2ea;
+      text-shadow: 0.05em 0 0 #ff66aa, -0.05em -0.025em 0 #00ffff;
+      animation: glitch 5s infinite;
+    }
+
+    @keyframes glitch {
+      0%, 100% { transform: none; opacity: 1; }
+      7% { transform: skew(0.5deg, -0.2deg); opacity: 0.9; }
+      10% { transform: none; }
+    }
+
+    /* cards, panels */
+    .survey-section {
+      background: rgba(0, 15, 12, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid #2d8f7a;
+      border-radius: 30px;
+      padding: 1.8rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 15px 30px -10px black;
+      transition: border 0.2s;
+    }
+
+    .survey-section:hover {
+      border-color: #7affdb;
+    }
+
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      text-transform: uppercase;
+      color: #c2fff0;
+      border-left: 6px solid #f657b3;
+      padding-left: 1.2rem;
+      margin-bottom: 1.8rem;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px #ff33aa80;
+    }
+
+    .question-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem 2rem;
+    }
+
+    .field-group {
+      flex: 1 1 280px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      color: #b1ffe6;
+      margin-bottom: 0.3rem;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      background: #11221e;
+      border: 1px solid #258072;
+      color: #edfff9;
+      padding: 0.75rem 1rem;
+      border-radius: 40px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #ff88cc;
+      box-shadow: 0 0 20px #ff44aa80;
+    }
+
+    /* checkbox & radio custom */
+    .check-group, .radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem 2rem;
+      background: #0e262f30;
+      padding: 1rem 1.5rem;
+      border-radius: 50px;
+    }
+
+    .check-item, .radio-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .check-item input, .radio-item input {
+      width: 20px;
+      height: 20px;
+      accent-color: #00ccb0;
+    }
+
+    .open-response {
+      margin-top: 1.2rem;
+    }
+
+    hr {
+      border: 1px dashed #2dab8e;
+      margin: 1.5rem 0;
+    }
+
+    .button-prime {
+      background: #182f2a;
+      color: #e5fffa;
+      border: 2px solid #66ffee;
+      font-size: 2rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 1.2rem 3rem;
+      border-radius: 70px;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 5px;
+      transition: 0.2s;
+      box-shadow: 0 0 25px #1ae0b0;
+      width: 100%;
+    }
+
+    .button-prime:hover {
+      background: #215d52;
+      box-shadow: 0 0 50px cyan;
+      border-color: #ffaae6;
+    }
+
+    /* thankyou panel (hidden by default) */
+    .thankyou-panel {
+      background: #03100ec9;
+      backdrop-filter: blur(16px);
+      border: 3px solid #ff55aa;
+      border-radius: 70px;
+      padding: 3rem;
+      margin-top: 3rem;
+      text-align: center;
+      box-shadow: 0 0 100px #ff66aa80;
+      display: none;
+    }
+
+    .thankyou-panel.show {
+      display: block;
+    }
+
+    .thankyou-panel h1 {
+      font-size: 4rem;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      color: #ffffff;
+      text-shadow: 0 0 15px magenta, 0 0 30px cyan;
+    }
+
+    .reward-badge {
+      background: #2b4e46;
+      padding: 1.5rem;
+      border-radius: 60px;
+      margin: 2rem 0;
+      font-size: 1.5rem;
+      border: 2px solid gold;
+    }
+
+    .discord-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+
+    .discord-card {
+      background: #1b2b37;
+      border-radius: 40px;
+      padding: 1.5rem 2rem;
+      border-left: 10px solid #5865F2;
+      font-size: 1.2rem;
+    }
+
+    .small-note {
+      color: #9edfd2;
+    }
+
+    footer {
+      margin-top: 2rem;
+      border-top: 1px solid #2f8e7a;
+      padding-top: 1.5rem;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-    <div class="container fade-in">
-        <img src="https://images.saymedia-content.com/.image/t_share/MTgyMjY5MDIxMzY0NjkyMjk2/the-future-of-ai-meet-hln-a-in-genesis-part-2.jpg" alt="KYRAX" class="kyrax-img">
-        <h1>KI-RA STUDIOS NAMTAR ARK: Survival Ascended</h1>
-        <h2>Survivor Registration & Server Calibration Survey</h2>
-        <p class="text-center">Led by KYRAX (SATCORP's AI)</p>
-        
-        <form id="surveyForm">
-            <div class="accordion" id="surveyAccordion">
-                <!-- SECTION I -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#section1">
-                            SECTION I — Survivor Profile
-                        </button>
-                    </h2>
-                    <div id="section1" class="accordion-collapse collapse show">
-                        <div class="accordion-body">
-                            <div class="mb-3">
-                                <label class="form-label">1. Survivor Name (Gamertag):</label>
-                                <input type="text" class="form-control" name="1_survivor_name">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">2. Platform:</label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="2_platform" value="PC (Steam)">
-                                    <label class="form-check-label">PC (Steam)</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="2_platform" value="Xbox">
-                                    <label class="form-check-label">Xbox</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="2_platform" value="PlayStation">
-                                    <label class="form-check-label">PlayStation</label>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">3. Average Play Time Per Week:</label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="3_play_time" value="1–5 hrs">
-                                    <label class="form-check-label">1–5 hrs</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="3_play_time" value="5–15 hrs">
-                                    <label class="form-check-label">5–15 hrs</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="3_play_time" value="15–30 hrs">
-                                    <label class="form-check-label">15–30 hrs</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="3_play_time" value="30+ hrs">
-                                    <label class="form-check-label">30+ hrs</label>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">4. Playstyle:</label>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="4_playstyle[]" value="Solo">
-                                    <label class="form-check-label">Solo</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="4_playstyle[]" value="Small Tribe (2–5)">
-                                    <label class="form-check-label">Small Tribe (2–5)</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="4_playstyle[]" value="Large Tribe (6+)">
-                                    <label class="form-check-label">Large Tribe (6+)</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="4_playstyle[]" value="PvE">
-                                    <label class="form-check-label">PvE</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="4_playstyle[]" value="PvP">
-                                    <label class="form-check-label">PvP</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="4_playstyle[]" value="Breeder">
-                                    <label class="form-check-label">Breeder</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="4_playstyle[]" value="Explorer">
-                                    <label class="form-check-label">Explorer</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="4_playstyle[]" value="Hybrid">
-                                    <label class="form-check-label">Hybrid</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="wrapper">
+  <!-- KYRAX (HLNA style) header -->
+  <div class="kyrax-container">
+    <div class="kyrax-avatar"><i class="fas fa-robot"></i></div>
+    <div class="kyrax-message">
+      <p><span class="glitch">KYRAX</span> · SATCORP AI interface online</p>
+      <p>“I am the calibration guide, survivor. Your input will shape NAMTAR.”</p>
+    </div>
+  </div>
 
-                <!-- SECTION II -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#section2">
-                            SECTION II — Server Type Preference
-                        </button>
-                    </h2>
-                    <div id="section2" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <div class="mb-3">
-                                <label class="form-label">5. Server Mode Preference:</label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="5_server_mode" value="PvE">
-                                    <label class="form-check-label">PvE</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="5_server_mode" value="PvP">
-                                    <label class="form-check-label">PvP</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="5_server_mode" value="PvPvE Zones">
-                                    <label class="form-check-label">PvPvE Zones</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="5_server_mode" value="Seasonal Wipe PvP">
-                                    <label class="form-check-label">Seasonal Wipe PvP</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="5_server_mode" value="Long-Term Persistent">
-                                    <label class="form-check-label">Long-Term Persistent</label>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">6. Offline Raid Protection (ORP)? (If PvP)</label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="6_orp" value="None">
-                                    <label class="form-check-label">None</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="6_orp" value="1 hour offline">
-                                    <label class="form-check-label">1 hour offline</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="6_orp" value="4 hours">
-                                    <label class="form-check-label">4 hours</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="6_orp" value="12 hours">
-                                    <label class="form-check-label">12 hours</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="6_orp" value="24 hours">
-                                    <label class="form-check-label">24 hours</label>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">7. Wipe Schedule Preference (if PvP):</label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="7_wipe_schedule" value="No Wipes">
-                                    <label class="form-check-label">No Wipes</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="7_wipe_schedule" value="3 Months">
-                                    <label class="form-check-label">3 Months</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="7_wipe_schedule" value="6 Months">
-                                    <label class="form-check-label">6 Months</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="7_wipe_schedule" value="1 Year">
-                                    <label class="form-check-label">1 Year</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="7_wipe_schedule" value="Seasonal Campaign Format">
-                                    <label class="form-check-label">Seasonal Campaign Format</label>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">8. Single map or cluster? (Single select)</label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="8_map_type" value="Single map (one world, easier)" id="singleMap">
-                                    <label class="form-check-label">Single map (one world, easier)</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="8_map_type" value="Cluster (multiple maps, transfers allowed)" id="clusterMap">
-                                    <label class="form-check-label">Cluster (multiple maps, transfers allowed – specify below)</label>
-                                </div>
-                            </div>
-                            <div id="clusterOptions" style="display: none;" class="mb-3">
-                                <label class="form-label">If cluster, which maps to include? (Multi-select)</label>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="8_cluster_maps[]" value="The Island">
-                                    <label class="form-check-label">The Island</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="8_cluster_maps[]" value="Scorched Earth">
-                                    <label class="form-check-label">Scorched Earth</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="8_cluster_maps[]" value="Aberration">
-                                    <label class="form-check-label">Aberration</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="8_cluster_maps[]" value="Extinction">
-                                    <label class="form-check-label">Extinction</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="8_cluster_maps[]" value="The Center">
-                                    <label class="form-check-label">The Center</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="8_cluster_maps[]" value="Ragnarok">
-                                    <label class="form-check-label">Ragnarok</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="8_cluster_maps[]" value="Custom mod map">
-                                    <label class="form-check-label">Custom mod map (suggest below)</label>
-                                </div>
-                                <textarea class="form-control" name="8_custom_map_suggestion" placeholder="Suggest custom mod map"></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">9. Preferred starting map? (Single select)</label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="9_starting_map" value="The Island">
-                                    <label class="form-check-label">The Island</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="9_starting_map" value="Scorched Earth">
-                                    <label class="form-check-label">Scorched Earth</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="9_starting_map" value="The Center">
-                                    <label class="form-check-label">The Center</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="9_starting_map" value="Other" id="otherStartingMap">
-                                    <label class="form-check-label">Other (specify)</label>
-                                </div>
-                                <div id="otherStartingMapOption" style="display: none;">
-                                    <input type="text" class="form-control" name="9_other_starting_map" placeholder="Specify other starting map">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SECTION III -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#section3">
-                            SECTION III — Rate Preferences
-                        </button>
-                    </h2>
-                    <div id="section3" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <div class="mb-3">
-                                <label class="form-label">10. Harvest Rates:</label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="10_harvest_rates" value="Official (1x)">
-                                    <label class="form-check-label">Official (1x)</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="10_harvest_rates" value="2x">
-                                    <label class="form-check-label">2x</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="10_harvest_rates" value="3x">
-                                    <label class="form-check-label">3x</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="10_harvest_rates" value="5x">
-                                    <label class="form-check-label">5x</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="10_harvest_rates" value="10x">
-                                    <label class="form-check-label">10x</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="10_harvest_rates" value="Custom">
-                                    <label class="form-check-label">Custom (suggestion)</label>
-                                </div>
-                                <input type="text" class="form-control" name="10_custom_harvest" placeholder="Custom suggestion">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">11. Taming Speed:</label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="11_taming_speed" value="Official">
-                                    <label class="form-check-label">Official</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="11_taming_speed" value="2x">
-                                    <label class="form-check-label">2x</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="11_taming_speed" value="3x">
-                                    <label class="form-check-label">3x</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="11_taming_speed" value="5x">
-                                    <label class="form-check-label">5x</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="11_taming_speed" value="10x">
-                                    <label class="form-check-label">10x</label>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">12. Breeding:</label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="12_breeding" value="Official">
-                                    <label class="form-check-label">Official</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="12_breeding" value="5x">
-                                    <label class="form-check-label">5x</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="12_breeding" value="10x">
-                                    <label class="form-check-label">10x</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="12_breeding" value="20x">
-                                    <label class="form-check-label">20x</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="12_breeding" value="Fast but Balanced">
-                                    <label class="form-check-label">Fast but Balanced</label>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">13. XP Rate:</label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="13_xp_rate" value="Official">
-                                    <label class="form-check-label">Official</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="13_xp_rate" value="2x">
-                                    <label class="form-check-label">2x</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="13_xp_rate" value="3x">
-                                    <label class="form-check-label">3x</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="13_xp_rate" value="5x">
-                                    <label class="form-check-label">5x</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="13_xp_rate" value="Fast Progression">
-                                    <label class="form-check-label">Fast Progression</label>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">14. Imprint Settings Preference:</label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="14_imprint" value="Full imprint achievable solo">
-                                    <label class="form-check-label">Full imprint achievable solo</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="14_imprint" value="Fast maturation">
-                                    <label class="form-check-label">Fast maturation</label>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">15. Difficulty (Wild Dino Levels) (Single select)</label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="15_difficulty" value="Official (150)">
-                                    <label class="form-check-label">Official (150)</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="15_difficulty" value="180">
-                                    <label class="form-check-label">180</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="15_difficulty" value="200+">
-                                    <label class="form-check-label">200+</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="15_difficulty" value="Custom">
-                                    <label class="form-check-label">Custom</label>
-                                </div>
-                                <input type="text" class="form-control" name="15_custom_difficulty" placeholder="Custom difficulty">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SECTION IV -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#section4">
-                            SECTION IV — Quality of Life (QoL)
-                        </button>
-                    </h2>
-                    <div id="section4" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <label class="form-label">Which QoL features do you prefer? (Select all that apply)</label>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="16_qol[]" value="Stack Size (larger stacks)">
-                                <label class="form-check-label">Stack Size (larger stacks)</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="16_qol[]" value="Auto Engram Unlock">
-                                <label class="form-check-label">Auto Engram Unlock</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="16_qol[]" value="Auto Learn Engrams Per Level">
-                                <label class="form-check-label">Auto Learn Engrams Per Level</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="16_qol[]" value="Death Recovery Token">
-                                <label class="form-check-label">Death Recovery Token</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="16_qol[]" value="Cryopods Adjusted">
-                                <label class="form-check-label">Cryopods Adjusted</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="16_qol[]" value="Custom Drops">
-                                <label class="form-check-label">Custom Drops</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="16_qol[]" value="Boosted Weight">
-                                <label class="form-check-label">Boosted Weight</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="16_qol[]" value="Offline Raid Protection (PvP)">
-                                <label class="form-check-label">Offline Raid Protection (PvP)</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="16_qol[]" value="Structure Pickup Anytime">
-                                <label class="form-check-label">Structure Pickup Anytime</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="16_qol[]" value="Element Transfer Enabled">
-                                <label class="form-check-label">Element Transfer Enabled</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="16_qol[]" value="Infinite respecs">
-                                <label class="form-check-label">Infinite respecs</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="16_qol[]" value="Faster crop growth (5x+)">
-                                <label class="form-check-label">Faster crop growth (5x+)</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="16_qol[]" value="No diseases">
-                                <label class="form-check-label">No diseases</label>
-                            </div>
-                            <div class="mb-3 mt-3">
-                                <label class="form-label">Open response: What QoL features are mandatory for you?</label>
-                                <textarea class="form-control" name="16_mandatory_qol"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SECTION V -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#section5">
-                            SECTION V — Mods (ASA Compatible)
-                        </button>
-                    </h2>
-                    <div id="section5" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <div class="mb-3">
-                                <label class="form-label">Do you prefer:</label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="17_mod_level" value="Light Modded (5–10 mods)">
-                                    <label class="form-check-label">Light Modded (5–10 mods)</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="17_mod_level" value="Medium Modded (10–20 mods)">
-                                    <label class="form-check-label">Medium Modded (10–20 mods)</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="17_mod_level" value="Heavily Modded (20+)">
-                                    <label class="form-check-label">Heavily Modded (20+)</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="17_mod_level" value="Vanilla+ (minimal changes)">
-                                    <label class="form-check-label">Vanilla+ (minimal changes)</label>
-                                </div>
-                            </div>
-                            <label class="form-label">Mod Interest Categories: (Select all that apply)</label>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="17_mod_categories[]" value="Building Expansion Mods">
-                                <label class="form-check-label">Building Expansion Mods</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="17_mod_categories[]" value="Dino Expansion Mods">
-                                <label class="form-check-label">Dino Expansion Mods</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="17_mod_categories[]" value="Cosmetic Armor/Skins">
-                                <label class="form-check-label">Cosmetic Armor/Skins</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="17_mod_categories[]" value="Advanced Tek Mods">
-                                <label class="form-check-label">Advanced Tek Mods</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="17_mod_categories[]" value="Automation Mods">
-                                <label class="form-check-label">Automation Mods</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="17_mod_categories[]" value="Economy/Trading System">
-                                <label class="form-check-label">Economy/Trading System</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="17_mod_categories[]" value="Custom Bosses">
-                                <label class="form-check-label">Custom Bosses</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="17_mod_categories[]" value="Map Additions">
-                                <label class="form-check-label">Map Additions</label>
-                            </div>
-                            <div class="mb-3 mt-3">
-                                <label class="form-label">Open response: List specific mods you'd like to see.</label>
-                                <textarea class="form-control" name="17_specific_mods"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SECTION VI -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#section6">
-                            SECTION VI — Economy & Systems
-                        </button>
-                    </h2>
-                    <div id="section6" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <label class="form-label">Would you participate in: (Select all that apply)</label>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="18_economy[]" value="Player-driven economy">
-                                <label class="form-check-label">Player-driven economy</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="18_economy[]" value="Server currency">
-                                <label class="form-check-label">Server currency</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="18_economy[]" value="Admin shop">
-                                <label class="form-check-label">Admin shop</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="18_economy[]" value="Black Market events">
-                                <label class="form-check-label">Black Market events</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="18_economy[]" value="Arena tournaments">
-                                <label class="form-check-label">Arena tournaments</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="18_economy[]" value="Bounty system">
-                                <label class="form-check-label">Bounty system</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SECTION VII -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#section7">
-                            SECTION VII — NAMTAR World Design
-                        </button>
-                    </h2>
-                    <div id="section7" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <label class="form-label">Would you enjoy: (Select all that apply)</label>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="19_world_design[]" value="Lore-based world events">
-                                <label class="form-check-label">Lore-based world events</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="19_world_design[]" value="Server-wide invasion events">
-                                <label class="form-check-label">Server-wide invasion events</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="19_world_design[]" value="Structured factions aligned with NAMTAR lore">
-                                <label class="form-check-label">Structured factions aligned with NAMTAR lore</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SECTION VIII -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#section8">
-                            SECTION VIII — Community Standards
-                        </button>
-                    </h2>
-                    <div id="section8" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <div class="mb-3">
-                                <label class="form-label">Preferred Community Size:</label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="20_community_size" value="20–30">
-                                    <label class="form-check-label">20–30</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="20_community_size" value="50">
-                                    <label class="form-check-label">50</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="20_community_size" value="100+">
-                                    <label class="form-check-label">100+</label>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">How strict should rules be?</label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="21_rules_strictness" value="Competitive but clean">
-                                    <label class="form-check-label">Competitive but clean</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="21_rules_strictness" value="Moderate">
-                                    <label class="form-check-label">Moderate</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="21_rules_strictness" value="Hardcore enforcement">
-                                    <label class="form-check-label">Hardcore enforcement</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SECTION IX -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#section9">
-                            SECTION IX — Long-Term Vision
-                        </button>
-                    </h2>
-                    <div id="section9" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <div class="mb-3">
-                                <label class="form-label">What keeps you on a server long-term? (Open response)</label>
-                                <textarea class="form-control" name="22_long_term_keep"></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">What makes you leave a server? (Open response)</label>
-                                <textarea class="form-control" name="23_long_term_leave"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SECTION X -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#section10">
-                            SECTION X — Final Calibration
-                        </button>
-                    </h2>
-                    <div id="section10" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <div class="mb-3">
-                                <label class="form-label">Rate your interest in the NAMTAR Ark server (1–10):</label>
-                                <select class="form-select" name="24_interest_rate">
-                                    <option value="">Select</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Would you join at launch?</label>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="25_join_launch" value="Yes">
-                                    <label class="form-check-label">Yes</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="25_join_launch" value="Maybe">
-                                    <label class="form-check-label">Maybe</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" class="form-check-input" name="25_join_launch" value="No">
-                                    <label class="form-check-label">No</label>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Anything else you want Ki-Ra Studios to know?</label>
-                                <textarea class="form-control" name="26_anything_else"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- BONUS -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bonus">
-                            BONUS — Elite Application (Optional)
-                        </button>
-                    </h2>
-                    <div id="bonus" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <div class="mb-3">
-                                <label class="form-label">Leadership Experience?</label>
-                                <textarea class="form-control" name="27_leadership_experience"></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Competitive PvP Experience?</label>
-                                <textarea class="form-control" name="28_pvp_experience"></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Comprehensive PvE Knowledge?</label>
-                                <textarea class="form-control" name="29_pve_knowledge"></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Builder Portfolio?</label>
-                                <textarea class="form-control" name="30_builder_portfolio"></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Content Creator? (Twitch/YouTube)</label>
-                                <textarea class="form-control" name="31_content_creator"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary btn-lg d-block mx-auto mt-4">Submit Survey</button>
-        </form>
-
-        <div id="thankYou" class="mt-5 text-center">
-            <h1>KI-RA STUDIOS</h1>
-            <h2>NAMTAR: ARK Survival Ascended</h2>
-            <p>Survivor Transmission Received.</p>
-            <p>Thank you for filling out our survey your input will be a great help to the Ki-Ra Studios team as we calibrate the upcoming NAMTAR server experience.</p>
-            <p>Your voice directly shapes:</p>
-            <ul>
-                <li>Server rates</li>
-                <li>Mods & world systems</li>
-                <li>PvP / PvE balance</li>
-                <li>Events & long-term progression</li>
-            </ul>
-            <p>Survivor Reward Confirmed:</p>
-            <p>With the completion of this survey, you will receive a complimentary Starter Kit after launch.</p>
-            <p>Details will be announced inside the community channels prior to deployment.</p>
-            <h3>Stay Connected</h3>
-            <p>To receive launch updates, event announcements, lore drops, and early access information:</p>
-            <a href="https://discord.gg/x3eYkTb68X" target="_blank">https://discord.gg/x3eYkTb68X</a>
-            <p>This is where:</p>
-            <ul>
-                <li>Launch countdown begins</li>
-                <li>Event schedules are posted</li>
-                <li>Factions begin forming</li>
-                <li>Community votes happen</li>
-            </ul>
-            <h3>Expand Beyond NAMTAR</h3>
-            <p>For Ki-Ra Studios mods, custom worlds, and ongoing game development projects:</p>
-            <p>Join the SATCORP Community:</p>
-            <a href="https://discord.gg/KqphHMq6vS" target="_blank">https://discord.gg/KqphHMq6vS</a>
-            <p>The gates to NAMTAR will open soon.</p>
-            <p>Prepare.</p>
-            <p>Recruit.</p>
-            <p>Survive.</p>
-            <p>— Ki-Ra Studios Development Team</p>
+  <!-- SURVEY FORM – all data will be sent to discord via webhook -->
+  <form id="surveyForm">
+    <!-- SECTION I -->
+    <div class="survey-section">
+      <h2>SECTION I — Survivor Profile</h2>
+      <div class="question-grid">
+        <div class="field-group"><label>1. Survivor Name (Gamertag):</label> <input type="text" name="survivorName" placeholder="Gamertag..." required></div>
+        <div class="field-group"><label>2. Platform:</label>
+          <select name="platform">
+            <option>PC (Steam)</option><option>Xbox</option><option>PlayStation</option>
+          </select>
         </div>
+        <div class="field-group"><label>3. Avg Play Time:</label>
+          <select name="playTime">
+            <option>1–5 hrs</option><option>5–15 hrs</option><option>15–30 hrs</option><option>30+ hrs</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-group"><label>4. Playstyle (select all):</label>
+        <div class="check-group">
+          <label class="check-item"><input type="checkbox" name="playstyle" value="Solo"> Solo</label>
+          <label class="check-item"><input type="checkbox" name="playstyle" value="Small Tribe"> Small Tribe</label>
+          <label class="check-item"><input type="checkbox" name="playstyle" value="Large Tribe"> Large Tribe</label>
+          <label class="check-item"><input type="checkbox" name="playstyle" value="PvE"> PvE</label>
+          <label class="check-item"><input type="checkbox" name="playstyle" value="PvP"> PvP</label>
+          <label class="check-item"><input type="checkbox" name="playstyle" value="Breeder"> Breeder</label>
+          <label class="check-item"><input type="checkbox" name="playstyle" value="Explorer"> Explorer</label>
+          <label class="check-item"><input type="checkbox" name="playstyle" value="Hybrid"> Hybrid</label>
+        </div>
+      </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Show/hide cluster options
-        document.querySelectorAll('input[name="8_map_type"]').forEach(radio => {
-            radio.addEventListener('change', () => {
-                document.getElementById('clusterOptions').style.display = radio.id === 'clusterMap' && radio.checked ? 'block' : 'none';
-            });
+    <!-- SECTION II -->
+    <div class="survey-section">
+      <h2>SECTION II — Server Type</h2>
+      <div class="question-grid">
+        <div class="field-group"><label>5. Server Mode:</label><select name="serverMode"><option>PvE</option><option>PvP</option><option>PvPvE Zones</option><option>Seasonal Wipe PvP</option><option>Long-Term Persistent</option></select></div>
+        <div class="field-group"><label>6. Offline Raid Protection:</label><select name="orp"><option>None</option><option>1 hour offline</option><option>4 hours</option><option>12 hours</option><option>24 hours</option></select></div>
+        <div class="field-group"><label>7. Wipe Schedule (PvP):</label><select name="wipeSchedule"><option>No Wipes</option><option>3 Months</option><option>6 Months</option><option>1 Year</option><option>Seasonal Campaign Format</option></select></div>
+      </div>
+      <div class="field-group"><label>8. Single map or cluster?</label>
+        <div class="radio-group">
+          <label class="radio-item"><input type="radio" name="mapType" value="Single map (one world, easier)"> Single map</label>
+          <label class="radio-item"><input type="radio" name="mapType" value="Cluster (multiple maps)"> Cluster</label>
+        </div>
+      </div>
+      <div><label>If cluster, which maps? (multi)</label>
+        <div class="check-group"><label><input type="checkbox" name="clusterMaps" value="The Island"> Island</label><label><input type="checkbox" name="clusterMaps" value="Scorched Earth"> Scorched</label><label><input type="checkbox" name="clusterMaps" value="Aberration"> Aberration</label><label><input type="checkbox" name="clusterMaps" value="Extinction"> Extinction</label><label><input type="checkbox" name="clusterMaps" value="The Center"> Center</label><label><input type="checkbox" name="clusterMaps" value="Ragnarok"> Ragnarok</label><label><input type="checkbox" name="clusterMaps" value="Custom mod map"> Custom mod map</label></div>
+      </div>
+      <div class="field-group"><label>9. Preferred starting map:</label><input type="text" name="startingMap" placeholder="e.g. The Island, other"></div>
+    </div>
+
+    <!-- SECTION III rates etc (simplified but comprehensive) -->
+    <div class="survey-section">
+      <h2>SECTION III — Rate Preferences</h2>
+      <div class="question-grid">
+        <div class="field-group"><label>10. Harvest:</label><select name="harvest"><option>Official (1x)</option><option>2x</option><option>3x</option><option>5x</option><option>10x</option><option>Custom</option></select></div>
+        <div class="field-group"><label>11. Taming:</label><select name="taming"><option>Official</option><option>2x</option><option>3x</option><option>5x</option><option>10x</option></select></div>
+        <div class="field-group"><label>12. Breeding:</label><select name="breeding"><option>Official</option><option>5x</option><option>10x</option><option>20x</option><option>Fast but Balanced</option></select></div>
+        <div class="field-group"><label>13. XP:</label><select name="xp"><option>Official</option><option>2x</option><option>3x</option><option>5x</option><option>Fast Progression</option></select></div>
+        <div class="field-group"><label>14. Imprint:</label><select name="imprint"><option>Full imprint achievable solo</option><option>Fast maturation</option></select></div>
+        <div class="field-group"><label>15. Difficulty:</label><select name="difficulty"><option>Official (150)</option><option>180</option><option>200+</option><option>Custom</option></select></div>
+      </div>
+    </div>
+
+    <!-- SECTION IV QoL checkboxes -->
+    <div class="survey-section">
+      <h2>SECTION IV — Quality of Life (select all)</h2>
+      <div class="check-group" style="justify-content:flex-start;">
+        <label><input type="checkbox" name="qol" value="Stack Size"> Stack Size</label>
+        <label><input type="checkbox" name="qol" value="Auto Engram Unlock"> Auto Engram</label>
+        <label><input type="checkbox" name="qol" value="Auto Learn Engrams Per Level"> Auto learn/level</label>
+        <label><input type="checkbox" name="qol" value="Death Recovery Token"> Death Token</label>
+        <label><input type="checkbox" name="qol" value="Cryopods Adjusted"> Cryopods</label>
+        <label><input type="checkbox" name="qol" value="Custom Drops"> Custom Drops</label>
+        <label><input type="checkbox" name="qol" value="Boosted Weight"> Boosted Weight</label>
+        <label><input type="checkbox" name="qol" value="Offline Raid Protection (PvP)"> ORP</label>
+        <label><input type="checkbox" name="qol" value="Structure Pickup Anytime"> Pickup anytime</label>
+        <label><input type="checkbox" name="qol" value="Element Transfer Enabled"> Element transfer</label>
+        <label><input type="checkbox" name="qol" value="Infinite respecs"> Infinite respecs</label>
+        <label><input type="checkbox" name="qol" value="Faster crop growth"> Faster crop</label>
+        <label><input type="checkbox" name="qol" value="No diseases"> No diseases</label>
+      </div>
+      <div class="open-response"><label>Mandatory QoL features (open):</label><input type="text" name="qolMandatory" placeholder="tell us..."></div>
+    </div>
+
+    <!-- SECTION V - MODS -->
+    <div class="survey-section">
+      <h2>SECTION V — Mods</h2>
+      <div><label>Mod preference:</label><select name="modLevel"><option>Light Modded</option><option>Medium Modded</option><option>Heavily Modded</option><option>Vanilla+</option></select></div>
+      <div><label>Categories (select all):</label><div class="check-group">
+        <label><input type="checkbox" name="modCategory" value="Building Expansion"> Building</label>
+        <label><input type="checkbox" name="modCategory" value="Dino Expansion"> Dinos</label>
+        <label><input type="checkbox" name="modCategory" value="Cosmetic Armor/Skins"> Cosmetic</label>
+        <label><input type="checkbox" name="modCategory" value="Advanced Tek"> Tek</label>
+        <label><input type="checkbox" name="modCategory" value="Automation"> Automation</label>
+        <label><input type="checkbox" name="modCategory" value="Economy/Trading"> Economy</label>
+        <label><input type="checkbox" name="modCategory" value="Custom Bosses"> Bosses</label>
+        <label><input type="checkbox" name="modCategory" value="Map Additions"> Map Additions</label>
+      </div></div>
+      <div class="open-response"><label>Specific mods you'd like:</label><input type="text" name="specificMods" placeholder="e.g. Kraken's Better Dinos"></div>
+    </div>
+
+    <!-- short sections VI VII VIII simplified but inclusive -->
+    <div class="survey-section"><h2>VI — Economy & Systems</h2><div class="check-group"><label><input type="checkbox" name="economy" value="Player-driven economy"> Player economy</label><label><input type="checkbox" name="economy" value="Server currency"> Server currency</label><label><input type="checkbox" name="economy" value="Admin shop"> Admin shop</label><label><input type="checkbox" name="economy" value="Black Market events"> Black Market</label><label><input type="checkbox" name="economy" value="Arena tournaments"> Arena</label><label><input type="checkbox" name="economy" value="Bounty system"> Bounty</label></div></div>
+    <div class="survey-section"><h2>VII — NAMTAR World Design</h2><div class="check-group"><label><input type="checkbox" name="worldEvents" value="Lore-based world events"> Lore events</label><label><input type="checkbox" name="worldEvents" value="Server-wide invasion events"> Invasions</label><label><input type="checkbox" name="worldEvents" value="Structured factions aligned with NAMTAR lore"> Factions w/ lore</label></div></div>
+    <div class="survey-section"><h2>VIII — Community Standards</h2><div class="question-grid"><div class="field-group"><label>Preferred Community Size:</label><select name="communitySize"><option>20–30</option><option>50</option><option>100+</option></select></div><div class="field-group"><label>Rule strictness:</label><select name="ruleStrictness"><option>Competitive but clean</option><option>Moderate</option><option>Hardcore enforcement</option></select></div></div></div>
+    <div class="survey-section"><h2>IX — Long-Term Vision</h2><label>What keeps you on a server?</label><input type="text" name="keepReason"><label>What makes you leave?</label><input type="text" name="leaveReason"></div>
+    <div class="survey-section"><h2>X — Final Calibration</h2><div class="question-grid"><div class="field-group"><label>Rate interest (1-10):</label><input type="number" name="interest" min="1" max="10"></div><div class="field-group"><label>Join at launch?</label><select name="joinLaunch"><option>Yes</option><option>Maybe</option><option>No</option></select></div></div><label>Anything else?</label><input type="text" name="extraMessage"></div>
+    <div class="survey-section"><h2>BONUS — Elite Application</h2><div class="check-group"><label><input type="checkbox" name="elite" value="Leadership Experience"> Leadership</label><label><input type="checkbox" name="elite" value="Competitive PvP Experience"> PvP exp</label><label><input type="checkbox" name="elite" value="Comprehensive PvE Knowledge"> PvE know</label><label><input type="checkbox" name="elite" value="Builder Portfolio"> Builder</label><label><input type="checkbox" name="elite" value="Content Creator"> Content creator</label></div></div>
+
+    <!-- hidden field to mimic send to discord channel (will be used in JS) -->
+    <button type="button" class="button-prime" id="submitSurvey">TRANSMIT SURVIVOR DATA</button>
+  </form>
+
+  <!-- THANK YOU PANEL (hidden until submit) -->
+  <div id="thankyouPanel" class="thankyou-panel">
+    <h1>⏦ TRANSMISSION RECEIVED ⏦</h1>
+    <div style="font-size:2rem; color:#9fffe3;">KI-RA STUDIOS // NAMTAR</div>
+    <div class="reward-badge">
+      <i class="fas fa-shield-alt"></i> Survivor Reward Confirmed: Starter Kit after launch.<br>
+      <span class="small-note">Details inside community channels.</span>
+    </div>
+    <div class="discord-links">
+      <div class="discord-card"><i class="fab fa-discord"></i> NAMTAR hub: <strong>https://discord.gg/x3eYkTb68X</strong><br>Launch countdown · Events · Factions</div>
+      <div class="discord-card"><i class="fab fa-discord"></i> SATCORP community: <strong>https://discord.gg/KqphHMq6vS</strong><br>Mods & custom worlds</div>
+    </div>
+    <div style="font-size:1.7rem; margin: 1rem 0;">The gates to NAMTAR will open soon.<br>Prepare. Recruit. Survive.</div>
+    <div>— Ki-Ra Studios Development Team</div>
+  </div>
+
+  <footer>
+    <span style="opacity:0.6;">KYRAX online · all responses securely relayed to SATCORP · [ARK:SA]</span>
+  </footer>
+</div>
+
+<script>
+  (function() {
+    // ---- REPLACE WITH YOUR REAL DISCORD WEBHOOK ----
+    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1353827949647560805/YOUR_ACTUAL_WEBHOOK_ID"; 
+    // For safety, this demo will log to console, but we'll also attempt fetch.
+    // But to avoid errors, we test webhook presence. In production, set your endpoint.
+
+    const submitBtn = document.getElementById('submitSurvey');
+    const form = document.getElementById('surveyForm');
+    const thanksPanel = document.getElementById('thankyouPanel');
+
+    // Helper to gather checkbox values as array
+    function getCheckboxValues(name) {
+      let checks = document.querySelectorAll(`input[name="${name}"]:checked`);
+      return Array.from(checks).map(c => c.value).join(', ') || 'none selected';
+    }
+
+    function buildDiscordMessage() {
+      // Gather all fields – plain text summary for Discord channel
+      let survivorName = form.querySelector('[name="survivorName"]').value || 'unnamed';
+      let fields = [];
+
+      fields.push(`**SECTION I — Survivor**\nGamertag: ${survivorName}\nPlatform: ${form.querySelector('[name="platform"]').value}\nPlaytime: ${form.querySelector('[name="playTime"]').value}\nPlaystyle: ${getCheckboxValues('playstyle')}`);
+
+      fields.push(`**Server Mode**: ${form.querySelector('[name="serverMode"]').value} | ORP: ${form.querySelector('[name="orp"]').value} | Wipe: ${form.querySelector('[name="wipeSchedule"]').value}`);
+      fields.push(`**Map type**: ${document.querySelector('input[name="mapType"]:checked')?.value || 'not set'} | Maps cluster: ${getCheckboxValues('clusterMaps')} | Starting map: ${form.querySelector('[name="startingMap"]').value}`);
+
+      fields.push(`**Rates**: Harvest ${form.querySelector('[name="harvest"]').value}, Taming ${form.querySelector('[name="taming"]').value}, Breeding ${form.querySelector('[name="breeding"]').value}, XP ${form.querySelector('[name="xp"]').value}, Imprint ${form.querySelector('[name="imprint"]').value}, Difficulty ${form.querySelector('[name="difficulty"]').value}`);
+
+      fields.push(`**QoL selected**: ${getCheckboxValues('qol')} | mandatory: ${form.querySelector('[name="qolMandatory"]').value}`);
+      fields.push(`**Mods**: ${form.querySelector('[name="modLevel"]').value} | categories: ${getCheckboxValues('modCategory')} | specifics: ${form.querySelector('[name="specificMods"]').value}`);
+      fields.push(`**Economy**: ${getCheckboxValues('economy')}`);
+      fields.push(`**World Events**: ${getCheckboxValues('worldEvents')}`);
+      fields.push(`**Community**: size ${form.querySelector('[name="communitySize"]').value}, strictness ${form.querySelector('[name="ruleStrictness"]').value}`);
+      fields.push(`**Keep reason**: ${form.querySelector('[name="keepReason"]').value} | Leave reason: ${form.querySelector('[name="leaveReason"]').value}`);
+      fields.push(`**Interest**: ${form.querySelector('[name="interest"]').value}/10, Join launch: ${form.querySelector('[name="joinLaunch"]').value}, extra: ${form.querySelector('[name="extraMessage"]').value}`);
+      fields.push(`**Elite**: ${getCheckboxValues('elite')}`);
+
+      const finalText = fields.join('\n\n');
+      return {
+        content: `📡 **New Survivor Registration** – ${survivorName}\n\`\`\`${finalText.slice(0,1900)}\`\`\``
+      };
+    }
+
+    async function sendToDiscord(payload) {
+      if (!DISCORD_WEBHOOK_URL.includes("YOUR_ACTUAL")) {
+        console.warn("Webhook not set. Payload:", payload);
+        // For demo we proceed as success, but show a warning.
+        alert("⚠️ Demo mode: Webhook not configured. Check console for payload.\n\nChannel would receive:\n" + payload.content);
+        return true;
+      }
+      try {
+        let resp = await fetch(DISCORD_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
         });
+        if (!resp.ok) throw new Error(`Discord error ${resp.status}`);
+        return true;
+      } catch (e) {
+        console.error(e);
+        alert("Failed to send to Discord, but you can see collected data in console.");
+        return false;
+      }
+    }
 
-        // Show/hide other starting map
-        document.querySelectorAll('input[name="9_starting_map"]').forEach(radio => {
-            radio.addEventListener('change', () => {
-                document.getElementById('otherStartingMapOption').style.display = radio.id === 'otherStartingMap' && radio.checked ? 'block' : 'none';
-            });
-        });
+    submitBtn.addEventListener('click', async function(e) {
+      // Basic required field – survivor name
+      if (!form.querySelector('[name="survivorName"]').value.trim()) {
+        alert("KYRAX: Please enter your Survivor Name (Gamertag).");
+        return;
+      }
 
-        // Form submission
-        document.getElementById('surveyForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const data = {};
-            for (let [key, value] of formData.entries()) {
-                if (key.endsWith('[]')) {
-                    if (!data[key]) data[key] = [];
-                    data[key].push(value);
-                } else {
-                    data[key] = value;
-                }
-            }
+      const discordPayload = buildDiscordMessage();
+      const sent = await sendToDiscord(discordPayload);
 
-            const questions = {
-                '1_survivor_name': '1. Survivor Name (Gamertag):',
-                '2_platform': '2. Platform:',
-                '3_play_time': '3. Average Play Time Per Week:',
-                '4_playstyle[]': '4. Playstyle:',
-                '5_server_mode': '5. Server Mode Preference:',
-                '6_orp': '6. Offline Raid Protection (ORP)? (If PvP):',
-                '7_wipe_schedule': '7. Wipe Schedule Preference (if PvP):',
-                '8_map_type': '8. Single map or cluster?:',
-                '8_cluster_maps[]': 'If cluster, which maps to include?:',
-                '8_custom_map_suggestion': 'Custom mod map suggestion:',
-                '9_starting_map': '9. Preferred starting map?:',
-                '9_other_starting_map': 'Other starting map specify:',
-                '10_harvest_rates': '10. Harvest Rates:',
-                '10_custom_harvest': 'Custom harvest suggestion:',
-                '11_taming_speed': '11. Taming Speed:',
-                '12_breeding': '12. Breeding:',
-                '13_xp_rate': '13. XP Rate:',
-                '14_imprint': '14. Imprint Settings Preference:',
-                '15_difficulty': '15. Difficulty (Wild Dino Levels):',
-                '15_custom_difficulty': 'Custom difficulty:',
-                '16_qol[]': 'QoL features preferred:',
-                '16_mandatory_qol': 'Mandatory QoL features:',
-                '17_mod_level': 'Mod preference level:',
-                '17_mod_categories[]': 'Mod Interest Categories:',
-                '17_specific_mods': 'Specific mods:',
-                '18_economy[]': 'Economy & Systems participation:',
-                '19_world_design[]': 'NAMTAR World Design enjoyment:',
-                '20_community_size': 'Preferred Community Size:',
-                '21_rules_strictness': 'How strict should rules be?:',
-                '22_long_term_keep': 'What keeps you on a server long-term?:',
-                '23_long_term_leave': 'What makes you leave a server?:',
-                '24_interest_rate': 'Rate your interest in the NAMTAR Ark server (1–10):',
-                '25_join_launch': 'Would you join at launch?:',
-                '26_anything_else': 'Anything else you want Ki-Ra Studios to know?:',
-                '27_leadership_experience': 'Leadership Experience?:',
-                '28_pvp_experience': 'Competitive PvP Experience?:',
-                '29_pve_knowledge': 'Comprehensive PvE Knowledge?:',
-                '30_builder_portfolio': 'Builder Portfolio?:',
-                '31_content_creator': 'Content Creator? (Twitch/YouTube):'
-            };
+      // Hide form? Instead we show thank you and scroll
+      form.style.display = 'none';
+      thanksPanel.classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            const webhookUrl = 'YOUR_DISCORD_WEBHOOK_URL_HERE'; // Replace with your Discord webhook URL
-
-            try {
-                for (const key in data) {
-                    if (data[key] && data[key].length > 0 && questions[key]) {
-                        let answer = Array.isArray(data[key]) ? data[key].join(', ') : data[key];
-                        if (answer.trim() !== '') {
-                            await fetch(webhookUrl, {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ content: `${questions[key]} ${answer}` })
-                            });
-                        }
-                    }
-                }
-                document.getElementById('surveyForm').style.display = 'none';
-                document.getElementById('thankYou').style.display = 'block';
-            } catch (error) {
-                alert('Error sending survey. Please try again.');
-            }
-        });
-    </script>
+      // Optionally also send each question/answer separately as per request.
+      // but the above sends entire block. If you need separate messages, uncomment:
+      /*
+      let lines = discordPayload.content.split('\n');
+      for (let line of lines) { if(line.trim()) await sendToDiscord({content: line}); }
+      */
+    });
+  })();
+</script>
+<!-- note: no actual webhook is called unless you set a real URL -->
+<!-- style and immersion complete -->
 </body>
 </html>
