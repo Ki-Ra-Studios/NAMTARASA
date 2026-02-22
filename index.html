@@ -2,140 +2,143 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>KI-RA STUDIOS | NAMTAR Calibration</title>
+<title>NAMTAR Obelisk Protocol</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 body {
     margin:0;
-    font-family: 'Orbitron', sans-serif;
-    background: black;
-    color: #00f7ff;
-    overflow-x:hidden;
+    background:black;
+    font-family:'Orbitron',sans-serif;
+    color:#00f7ff;
+    overflow:hidden;
 }
 
-/* Background */
-body::before {
-    content:"";
+/* Animated Background */
+.background {
     position:fixed;
-    top:0;
-    left:0;
     width:100%;
     height:100%;
-    background: radial-gradient(circle at center, #001f2f 0%, #000000 70%);
-    z-index:-2;
+    background:radial-gradient(circle at center,#003544 0%,#000000 70%);
+    animation:pulse 6s infinite alternate;
+    z-index:-3;
+}
+@keyframes pulse {
+    from { filter:brightness(1); }
+    to { filter:brightness(1.4); }
 }
 
-/* Floating particles */
-canvas {
+/* Obelisk Beam */
+.beam {
     position:fixed;
     top:0;
-    left:0;
-    z-index:-1;
+    left:50%;
+    transform:translateX(-50%);
+    width:4px;
+    height:100%;
+    background:linear-gradient(to bottom,#00f7ff,transparent);
+    box-shadow:0 0 40px #00f7ff;
+    animation:beamPulse 3s infinite;
+    z-index:-2;
+}
+@keyframes beamPulse {
+    0% { opacity:.4 }
+    50% { opacity:1 }
+    100% { opacity:.4 }
 }
 
-/* Terminal container */
+/* KYRAX Orb */
+.kyrax {
+    position:fixed;
+    top:40px;
+    right:40px;
+    width:140px;
+    height:140px;
+    border-radius:50%;
+    background:radial-gradient(circle,#00f7ff 0%,#004f6a 60%,transparent 70%);
+    box-shadow:0 0 50px #00f7ff;
+    animation:float 4s ease-in-out infinite;
+}
+@keyframes float {
+    0% { transform:translateY(0); }
+    50% { transform:translateY(-15px); }
+    100% { transform:translateY(0); }
+}
+
+/* Terminal */
 .container {
-    max-width:900px;
-    margin:50px auto;
-    background: rgba(0,0,0,0.8);
-    padding:40px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:800px;
+    max-width:95%;
+    background:rgba(0,0,0,.85);
     border:1px solid #00f7ff;
-    border-radius:12px;
-    box-shadow:0 0 40px #00f7ff33;
+    padding:40px;
+    box-shadow:0 0 40px #00f7ff55;
 }
 
-h1, h2 {
-    text-align:center;
-}
-
-label {
-    display:block;
-    margin-top:20px;
-}
+h1 { text-align:center; }
 
 input, select, textarea {
     width:100%;
-    padding:10px;
-    margin-top:5px;
+    padding:12px;
+    margin-top:10px;
     background:black;
     border:1px solid #00f7ff;
     color:#00f7ff;
 }
 
 button {
-    margin-top:30px;
+    margin-top:20px;
     padding:15px;
     width:100%;
     background:#00f7ff;
     border:none;
-    font-weight:bold;
+    font-weight:800;
     cursor:pointer;
-    transition:.3s;
 }
 
-button:hover {
-    background:#00aabf;
-}
+button:hover { background:#00aabf; }
 
-.kyrax {
-    position:fixed;
-    top:20px;
-    right:20px;
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    background: radial-gradient(circle, #00f7ff 0%, #004f6a 60%, transparent 70%);
-    box-shadow:0 0 30px #00f7ff;
-    animation: float 4s ease-in-out infinite;
-}
+.hidden { display:none; }
 
-@keyframes float {
-    0% { transform:translateY(0px); }
-    50% { transform:translateY(-15px); }
-    100% { transform:translateY(0px); }
+.typewriter {
+    min-height:60px;
+    margin-bottom:20px;
+    font-size:14px;
 }
-
-.success-screen {
-    display:none;
+.success {
     text-align:center;
 }
 </style>
 </head>
 <body>
 
+<div class="background"></div>
+<div class="beam"></div>
 <div class="kyrax"></div>
 
-<div class="container" id="formContainer">
-<h1>KI-RA STUDIOS</h1>
-<h2>NAMTAR Survivor Registration</h2>
+<div class="container" id="terminal">
+<h1>NAMTAR Calibration Interface</h1>
+<div class="typewriter" id="aiText"></div>
 
 <form id="surveyForm">
 
-<label>1. Survivor Name (Gamertag)</label>
+<label>Survivor Name</label>
 <input type="text" name="Survivor Name" required>
 
-<label>2. Platform</label>
+<label>Platform</label>
 <select name="Platform">
 <option>PC (Steam)</option>
 <option>Xbox</option>
 <option>PlayStation</option>
 </select>
 
-<label>3. Average Play Time Per Week</label>
-<select name="Play Time">
-<option>1–5 hrs</option>
-<option>5–15 hrs</option>
-<option>15–30 hrs</option>
-<option>30+ hrs</option>
-</select>
-
-<label>4. Playstyle</label>
-<input type="text" name="Playstyle">
-
-<label>5. Server Mode Preference</label>
+<label>Server Mode Preference</label>
 <select name="Server Mode">
 <option>PvE</option>
 <option>PvP</option>
@@ -144,69 +147,75 @@ button:hover {
 <option>Long-Term Persistent</option>
 </select>
 
-<label>10. Harvest Rates</label>
+<label>Harvest Rate</label>
 <select name="Harvest Rate">
 <option>Official (1x)</option>
 <option>2x</option>
 <option>3x</option>
 <option>5x</option>
 <option>10x</option>
-<option>Custom</option>
 </select>
 
-<label>Open Response - What keeps you long term?</label>
-<textarea name="Long Term Vision"></textarea>
+<label>What keeps you long term?</label>
+<textarea name="Long Term Retention"></textarea>
 
-<button type="submit">Transmit to KYRAX</button>
+<button type="submit">Initiate Transmission</button>
 
 </form>
+
+<div id="successScreen" class="hidden success">
+<h1>Survivor Transmission Received</h1>
+<p>Calibration Complete.</p>
+<p>Starter Kit Confirmed at Launch.</p>
+<p>
+<a href="https://discord.gg/x3eYkTb68X" target="_blank" style="color:#00f7ff;">NAMTAR Command Channel</a><br>
+<a href="https://discord.gg/KqphHMq6vS" target="_blank" style="color:#00f7ff;">SATCORP Network</a>
+</p>
+<p>Prepare. Recruit. Survive.</p>
 </div>
 
-<div class="container success-screen" id="successScreen">
-<h1>Survivor Transmission Received</h1>
-
-<p>
-Thank you for filling out our survey.  
-Your input will directly shape the NAMTAR server experience.
-</p>
-
-<p><strong>Survivor Reward Confirmed:</strong><br>
-You will receive a complimentary Starter Kit after launch.
-</p>
-
-<p>Stay Connected:</p>
-
-<p>
-<a href="https://discord.gg/x3eYkTb68X" target="_blank" style="color:#00f7ff;">NAMTAR Discord</a><br>
-<a href="https://discord.gg/KqphHMq6vS" target="_blank" style="color:#00f7ff;">SATCORP Community</a>
-</p>
-
-<p>
-Prepare. Recruit. Survive.<br>
-— Ki-Ra Studios Development Team
-</p>
 </div>
 
 <script>
-const WEBHOOK_URL = "PASTE_YOUR_DISCORD_WEBHOOK_HERE";
+const WEBHOOK_URL = "PASTE_WEBHOOK_HERE";
 
-document.getElementById("surveyForm").addEventListener("submit", async function(e) {
+/* AI Typewriter */
+const text = "KYRAX ONLINE... Initiating Survivor Calibration Protocol...";
+let i=0;
+function typeWriter() {
+    if (i < text.length) {
+        document.getElementById("aiText").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter,30);
+    }
+}
+typeWriter();
+
+/* Survivor ID */
+function generateID() {
+    return "NAMTAR-" + Math.floor(100000 + Math.random() * 900000);
+}
+
+document.getElementById("surveyForm").addEventListener("submit", async function(e){
     e.preventDefault();
-
+    const survivorID = generateID();
     const formData = new FormData(this);
 
-    for (let [question, answer] of formData.entries()) {
-        await fetch(WEBHOOK_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                content: `**${question}**\n${answer}`
-            })
-        });
-    }
+    await fetch(WEBHOOK_URL,{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+            embeds:[{
+                title:"New Survivor Registration",
+                color: 65535,
+                fields:[...formData.entries()].map(([q,a])=>({name:q,value:a})),
+                footer:{text:"Survivor ID: "+survivorID}
+            }]
+        })
+    });
 
-    document.getElementById("formContainer").style.display="none";
-    document.getElementById("successScreen").style.display="block";
+    document.getElementById("surveyForm").classList.add("hidden");
+    document.getElementById("successScreen").classList.remove("hidden");
 });
 </script>
 
