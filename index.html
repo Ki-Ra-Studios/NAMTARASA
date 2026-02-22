@@ -1156,7 +1156,7 @@ header {
         <div class="kyrax-name">KYRAX</div>
         <div class="kyrax-role">SATCORP // SURVEY LEAD</div>
         <div class="kyrax-msg">
-          Greetings, Survivor. I am <span class="highlight">KYRAX</span>, SATCORP's artificial intelligence  your guide through the NAMTAR calibration process.<br><br>
+          Greetings, Survivor. I am <span class="highlight">KYRAX</span>, SATCORP's artificial intelligence — your guide through the NAMTAR calibration process.<br><br>
           Before the gates open, <span class="highlight">Ki-Ra Studios</span> needs to understand your playstyle, preferences, and ambitions. Your input will directly shape the server's rates, systems, and world design.<br><br>
           Complete this survey carefully. <span class="highlight">Every answer matters.</span>
         </div>
@@ -1870,7 +1870,6 @@ function buildDiscordMessage(answers){
   Object.entries(sectionMap).forEach(([key, label])=>{ if(answers[key]) fields.push({ name:label, value:answers[key].substring(0,1024), inline:false }); });
   return {
     username: 'KYRAX // SATCORP AI',
-    avatar_url: 'kyrax-wolf-2.png',
     embeds: [{
       title: `⚡ NAMTAR SURVEY — ${gamertag}`,
       description: `New survivor registration received.\n**Submitted:** ${timestamp}`,
@@ -1882,9 +1881,9 @@ function buildDiscordMessage(answers){
 }
 
 // ─── SUBMIT ──────────────────────────────────────
+// ✅ Webhook is now handled server-side via Netlify Function
+// No sensitive URL exposed in this file
 async function submitSurvey(){
-  const webhookUrl = 'https://discord.com/api/webhooks/1475193223151489159/GJ7sk625TTpj6LVW66fU2wqg9wlialD5fYb3tmMzoih1GHts0RSg6WGZaLLckvFuTDj4';
-
   const btn = document.getElementById('submit-btn');
   btn.textContent = '⟳ TRANSMITTING...';
   btn.disabled = true;
@@ -1893,7 +1892,7 @@ async function submitSurvey(){
   const payload = buildDiscordMessage(answers);
 
   try {
-    const res = await fetch(webhookUrl, {
+    const res = await fetch('/api/submit-survey', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
@@ -1906,7 +1905,7 @@ async function submitSurvey(){
       document.getElementById('thank-you').style.display = 'block';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      alert(`Transmission failed. Discord responded with status ${res.status}.`);
+      alert(`Transmission failed. Server responded with status ${res.status}.`);
       btn.textContent = '▶ TRANSMIT TO NAMTAR';
       btn.disabled = false;
     }
