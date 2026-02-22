@@ -284,10 +284,11 @@ header {
   height: 80px;
   position: relative;
 }
-.kyrax-avatar svg {
+.kyrax-avatar img {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 0 12px var(--ark-teal));
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px rgba(0,229,204,0.6));
   animation: hlna-float 4s ease-in-out infinite;
 }
 @keyframes hlna-float {
@@ -846,6 +847,11 @@ header {
   animation: boot-kyrax-in 1s ease 0.8s forwards;
   filter: drop-shadow(0 0 30px rgba(0,229,204,0.6));
 }
+#boot-kyrax img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 @keyframes boot-kyrax-in {
   0% { opacity: 0; transform: scale(0.5) rotate(-10deg); }
   60% { transform: scale(1.08) rotate(2deg); }
@@ -1063,41 +1069,7 @@ header {
     <div class="boot-satcorp">SATCORP SYSTEMS // KI-RA STUDIOS</div>
 
     <div id="boot-kyrax">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="bootOrbGrad" cx="40%" cy="35%">
-            <stop offset="0%" stop-color="#80ffef" stop-opacity="0.9"/>
-            <stop offset="60%" stop-color="#00e5cc" stop-opacity="0.6"/>
-            <stop offset="100%" stop-color="#004d44" stop-opacity="0.3"/>
-          </radialGradient>
-          <radialGradient id="bootCoreGrad" cx="40%" cy="35%">
-            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
-            <stop offset="100%" stop-color="#00e5cc" stop-opacity="0.7"/>
-          </radialGradient>
-        </defs>
-        <circle cx="50" cy="50" r="46" fill="none" stroke="#00e5cc" stroke-width="0.5" stroke-dasharray="8 4" opacity="0.5"/>
-        <circle cx="50" cy="50" r="38" fill="none" stroke="#00e5cc" stroke-width="0.3" stroke-dasharray="3 8" opacity="0.3" transform="rotate(45 50 50)"/>
-        <ellipse cx="50" cy="45" rx="28" ry="32" fill="url(#bootOrbGrad)" opacity="0.85"/>
-        <ellipse cx="44" cy="36" rx="10" ry="12" fill="url(#bootCoreGrad)" opacity="0.6"/>
-        <ellipse cx="50" cy="42" rx="16" ry="5" fill="#00e5cc" opacity="0.3"/>
-        <ellipse cx="50" cy="42" rx="14" ry="3" fill="#002a28" opacity="0.8"/>
-        <ellipse cx="50" cy="42" rx="8" ry="2" fill="#00ffee" opacity="0.9"/>
-        <ellipse cx="50" cy="42" rx="4" ry="1" fill="white" opacity="0.8"/>
-        <path d="M22 45 Q10 35 8 50 Q10 60 22 55Z" fill="#00e5cc" opacity="0.3"/>
-        <path d="M78 45 Q90 35 92 50 Q90 60 78 55Z" fill="#00e5cc" opacity="0.3"/>
-        <path d="M42 76 Q50 90 58 76" fill="none" stroke="#00e5cc" stroke-width="1.5" opacity="0.5"/>
-        <line x1="30" y1="60" x2="70" y2="60" stroke="#00e5cc" stroke-width="0.5" opacity="0.3"/>
-        <line x1="33" y1="65" x2="67" y2="65" stroke="#00e5cc" stroke-width="0.5" opacity="0.2"/>
-        <rect x="22" y="30" width="56" height="2" fill="#00ffee" opacity="0.5">
-          <animateTransform attributeName="transform" type="translate" values="0,0;0,30;0,0" dur="2s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.5;0.1;0.5" dur="2s" repeatCount="indefinite"/>
-        </rect>
-        <path d="M22 28 L28 28 L28 34" fill="none" stroke="#00e5cc" stroke-width="1" opacity="0.6"/>
-        <path d="M78 28 L72 28 L72 34" fill="none" stroke="#00e5cc" stroke-width="1" opacity="0.6"/>
-        <ellipse cx="50" cy="50" rx="46" ry="8" fill="none" stroke="#00e5cc" stroke-width="0.5" opacity="0.2" transform="rotate(-20 50 50)">
-          <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="6s" repeatCount="indefinite"/>
-        </ellipse>
-      </svg>
+      <img src="kyrax-wolf-1.png" alt="KYRAX" />
     </div>
 
     <div class="boot-namtar">NAMTAR</div>
@@ -1177,34 +1149,7 @@ header {
   <div id="kyrax-panel">
     <div class="kyrax-container">
       <div class="kyrax-avatar">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="orbGrad" cx="40%" cy="35%">
-              <stop offset="0%" stop-color="#80ffef" stop-opacity="0.9"/>
-              <stop offset="60%" stop-color="#00e5cc" stop-opacity="0.6"/>
-              <stop offset="100%" stop-color="#004d44" stop-opacity="0.3"/>
-            </radialGradient>
-            <radialGradient id="coreGrad" cx="40%" cy="35%">
-              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
-              <stop offset="100%" stop-color="#00e5cc" stop-opacity="0.7"/>
-            </radialGradient>
-          </defs>
-          <circle cx="50" cy="50" r="46" fill="none" stroke="#00e5cc" stroke-width="0.5" stroke-dasharray="8 4" opacity="0.4"/>
-          <ellipse cx="50" cy="45" rx="28" ry="32" fill="url(#orbGrad)" opacity="0.85"/>
-          <ellipse cx="44" cy="36" rx="10" ry="12" fill="url(#coreGrad)" opacity="0.6"/>
-          <ellipse cx="50" cy="42" rx="16" ry="5" fill="#00e5cc" opacity="0.3"/>
-          <ellipse cx="50" cy="42" rx="14" ry="3" fill="#002a28" opacity="0.8"/>
-          <ellipse cx="50" cy="42" rx="8" ry="2" fill="#00ffee" opacity="0.9"/>
-          <ellipse cx="50" cy="42" rx="4" ry="1" fill="white" opacity="0.8"/>
-          <path d="M22 45 Q10 35 8 50 Q10 60 22 55Z" fill="#00e5cc" opacity="0.3"/>
-          <path d="M78 45 Q90 35 92 50 Q90 60 78 55Z" fill="#00e5cc" opacity="0.3"/>
-          <path d="M42 76 Q50 90 58 76" fill="none" stroke="#00e5cc" stroke-width="1.5" opacity="0.5"/>
-          <line x1="30" y1="60" x2="70" y2="60" stroke="#00e5cc" stroke-width="0.5" opacity="0.3"/>
-          <line x1="33" y1="65" x2="67" y2="65" stroke="#00e5cc" stroke-width="0.5" opacity="0.2"/>
-          <rect x="22" y="30" width="56" height="1.5" fill="#00ffee" opacity="0.4"/>
-          <path d="M22 28 L28 28 L28 34" fill="none" stroke="#00e5cc" stroke-width="1" opacity="0.5"/>
-          <path d="M78 28 L72 28 L72 34" fill="none" stroke="#00e5cc" stroke-width="1" opacity="0.5"/>
-        </svg>
+        <img src="kyrax-wolf-1.png" alt="KYRAX" />
         <div class="kyrax-ring"></div>
       </div>
       <div class="kyrax-text">
