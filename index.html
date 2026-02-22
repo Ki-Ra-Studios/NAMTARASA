@@ -1848,73 +1848,103 @@ function collectAnswers(){
   return data;
 }
 
-// ─── BUILD DISCORD MESSAGE ───────────────────────
-function buildDiscordMessage(answers){
+// ─── BUILD DISCORD MESSAGES ───────────────────────
+function buildDiscordMessages(answers) {
   const gamertag = answers['q1'] || 'Unknown Survivor';
   const timestamp = new Date().toLocaleString('en-US', {dateStyle:'long', timeStyle:'short'});
-  const sectionMap = {
+
+  const sectionMap1 = {
     'q1':'Survivor Name','q2':'Platform','q3':'Play Time/Week','q4':'Playstyle',
     'q5':'Server Mode','q6':'ORP Preference','q7':'Wipe Schedule','q8':'Map Setup',
-    'q8-maps':'Cluster Maps','q8-custom-map':'Custom Map Suggestion','q9':'Starting Map','q9-other':'Starting Map (Other)',
-    'q10':'Harvest Rates','q10-custom':'Harvest Custom','q11':'Taming Speed','q12':'Breeding',
-    'q13':'XP Rate','q14':'Imprint Settings','q15':'Dino Difficulty',
+    'q8-maps':'Cluster Maps','q8-custom-map':'Custom Map Suggestion',
+    'q9':'Starting Map','q9-other':'Starting Map (Other)',
+    'q10':'Harvest Rates','q10-custom':'Harvest Custom','q11':'Taming Speed',
+    'q12':'Breeding','q13':'XP Rate','q14':'Imprint Settings','q15':'Dino Difficulty'
+  };
+
+  const sectionMap2 = {
     'q16':'QoL Features','q16-open':'QoL Mandatory',
     'q17':'Mod Volume','q18':'Mod Categories','q18-open':'Specific Mods',
     'q19':'Economy Participation','q20':'World Events',
     'q21':'Community Size','q22':'Rule Strictness',
     'q23':'Stays Long-Term For','q24':'Leaves Server For',
-    'q25':'Interest Rating (1–10)','q26':'Join At Launch?','q27':'Additional Comments',
-    'q-bonus':'Elite Credentials'
+    'q25':'Interest Rating (1–10)','q26':'Join At Launch?',
+    'q27':'Additional Comments','q-bonus':'Elite Credentials'
   };
-  let fields = [];
-  Object.entries(sectionMap).forEach(([key, label])=>{ if(answers[key]) fields.push({ name:label, value:answers[key].substring(0,1024), inline:false }); });
-  return {
-    username: 'KYRAX // SATCORP AI',
+
+  function buildFields(map) {
+    return Object.entries(map)
+      .filter(([key]) => answers[key])
+      .map(([key, label]) => ({
+        name: label,
+        value: answers[key].substring(0, 512),
+        inline: false
+      }));
+  }
+
+  const msg1 = {
+    username: 'KYRAX SATCORP AI',
     embeds: [{
-      title: `⚡ NAMTAR SURVEY — ${gamertag}`,
+      title: `⚡ NAMTAR SURVEY — ${gamertag} [1/2]`,
       description: `New survivor registration received.\n**Submitted:** ${timestamp}`,
       color: 0x00E5CC,
-      fields: fields,
-      footer: { text: 'Ki-Ra Studios | NAMTAR Server Calibration Survey' }
+      fields: buildFields(sectionMap1),
+      footer: { text: 'Ki-Ra Studios | NAMTAR Survey — Survivor Profile & Server Prefs' }
     }]
   };
+
+  const msg2 = {
+    username: 'KYRAX SATCORP AI',
+    embeds: [{
+      title: `⚡ NAMTAR SURVEY — ${gamertag} [2/2]`,
+      color: 0xFF6B1A,
+      fields: buildFields(sectionMap2),
+      footer: { text: 'Ki-Ra Studios | NAMTAR Survey — QoL, Mods, Vision & Final Answers' }
+    }]
+  };
+
+  return [msg1, msg2];
 }
 
 // ─── SUBMIT ──────────────────────────────────────
-// ✅ Webhook is now handled server-side via Netlify Function
-// No sensitive URL exposed in this file
 async function submitSurvey(){
   const btn = document.getElementById('submit-btn');
   btn.textContent = '⟳ TRANSMITTING...';
   btn.disabled = true;
 
   const answers = collectAnswers();
-  const payload = buildDiscordMessage(answers);
+  const messages = buildDiscordMessages(answers);
 
   try {
-    const res = await fetch('/api/submit-survey', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
+    // Send both messages sequentially
+    for (const payload of messages) {
+      const res = await fetch('/api/submit-survey', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
 
-    if(res.ok || res.status === 204){
-      document.getElementById('survey-form').parentElement.style.display = 'none';
-      document.querySelector('header').style.display = 'none';
-      document.getElementById('kyrax-panel').style.display = 'none';
-      document.getElementById('thank-you').style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      alert(`Transmission failed. Server responded with status ${res.status}.`);
-      btn.textContent = '▶ TRANSMIT TO NAMTAR';
-      btn.disabled = false;
+      if (!res.ok && res.status !== 204) {
+        throw new Error(`Server responded with status ${res.status}`);
+      }
+
+      // Small delay between messages so Discord doesn't rate limit
+      await new Promise(resolve => setTimeout(resolve, 600));
     }
-  } catch(err){
-    alert('Network error. Please check your connection and try again.');
+
+    // Success — show thank you
+    document.getElementById('survey-form').parentElement.style.display = 'none';
+    document.querySelector('header').style.display = 'none';
+    document.getElementById('kyrax-panel').style.display = 'none';
+    document.getElementById('thank-you').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  } catch(err) {
+    alert(`Transmission failed: ${err.message}`);
     btn.textContent = '▶ TRANSMIT TO NAMTAR';
     btn.disabled = false;
   }
-}
+    }
 </script>
 </body>
 </html>
